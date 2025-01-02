@@ -21,7 +21,7 @@ ALLOWED_HOSTS = ['*']
 # }
 
 DATABASES = {
-    'default': secure.LOCAL_DATABASE['dev'],
+    'default': secure.LOCAL_DATABASE[secure.ACTIVE_DATABASE_CONFIG],
 }
 
 

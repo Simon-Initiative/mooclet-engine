@@ -3,28 +3,28 @@ services:
     image: postgres:alpine
     restart: always
     env_file:
-      - docker_local.env
+      - ./docker_local.env
     environment:
-      - POSTGRES_USER=${DB_USER}
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
-      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER:-moocletdb}
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-mooclet}
+      - POSTGRES_DB=${DB_NAME:-moocletdb}
     networks:
       - moocletservice
     ports:
       - "5432:5432"
     volumes:
       - moocletdata:/var/lib/postgresql/data
-      - ./mooclet_local.docker_setup_sql.sh:/docker-entrypoint-initdb.d/mooclet_local.docker_setup_sql.sh
+      - ./docker_local.docker_setup_sql.sh:/docker-entrypoint-initdb.d/docker_local.docker_setup_sql.sh
 
   mooclet-api-local:
     container_name: mooclet-api-local
     build:
       context: .
-      dockerfile: ./mooclet_local.Dockerfile
+      dockerfile: ./docker_local.Dockerfile
     image: mooclet-api-local:latest
     pull_policy: never
     env_file:
-      - docker_local.env
+      - ./docker_local.env
     volumes:
       - moocletdata:/usr/mooclet_engine
     networks:
@@ -34,8 +34,8 @@ services:
     command: >
       sh -c "python manage.py migrate &&
              python manage.py loaddata policy &&
-             python manage.py createsuperuser --noinput --username=${DJANGO_SUPERUSER_USERNAME} --email=${DJANGO_SUPERUSER_EMAIL} || true &&
-             echo \"from django.contrib.auth import get_user_model; User = get_user_model(); user = User.objects.get(username='${DJANGO_SUPERUSER_USERNAME}'); user.set_password('${DJANGO_SUPERUSER_PASSWORD}'); user.save()\" | python manage.py shell &&
+             python manage.py createsuperuser --noinput --username=${DJANGO_SUPERUSER_USERNAME:-mooclet} --email=${DJANGO_SUPERUSER_EMAIL:-admin@mooclet.org} || true &&
+             echo \"from django.contrib.auth import get_user_model; User = get_user_model(); user = User.objects.get(username='${DJANGO_SUPERUSER_USERNAME:-mooclet}'); user.set_password('${DJANGO_SUPERUSER_PASSWORD:-mooclet}'); user.save()\" | python manage.py shell &&
              python manage.py runserver 0.0.0.0:8000"
     depends_on:
       - mooclet-postgres-local
