@@ -7,7 +7,7 @@ services:
     environment:
       - POSTGRES_USER=${DB_USER:-moocletdb}
       - POSTGRES_PASSWORD=${DB_PASSWORD:-mooclet}
-      - POSTGRES_DB=${DB_NAME:-moocletdb}
+      - POSTGRES_DB=${DB_NAME:-mooclet}
     networks:
       - moocletservice
     ports:
@@ -28,7 +28,7 @@ services:
     volumes:
       - moocletdata:/usr/mooclet_engine
     networks:
-      - moocletservice 
+      - moocletservice
     ports:
       - "8000:8000"
     command: >
