@@ -32,6 +32,9 @@ Copy the example secure configuration (or modify your existing `secure.py` to in
 ```bash
 cp mooclet_engine/settings/secure.py.example mooclet_engine/settings/secure.py
 ```
+
+Note: You will need to uncomment "SECRET_KEY", for this development server any string will do but change that in prod...
+
 ---
 
 #### Copy `docker_local.env.example` env File

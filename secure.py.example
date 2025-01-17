@@ -39,17 +39,17 @@ LOCAL_DATABASE = {
     },
     'docker_local': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DB_NAME', 'moocletdb'),
-        'USER': os.getenv('DB_USER', 'mooclet'),
-        'PASSWORD': os.getenv('DB_PASSWORD', 'mooclet'),
-        'HOST': os.getenv('DB_HOST', 'mooclet-postgres-local'),
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST'),
         'PORT': os.getenv('DB_PORT', 5432),
     }
 }
 
 # Choose which database configuration to use
 # Options: 'dev' or 'docker_local'
-ACTIVE_DATABASE_CONFIG = 'dev'
+ACTIVE_DATABASE_CONFIG = os.getenv('ACTIVE_DATABASE_CONFIG', 'dev')
 
 # Actual database configuration
 DATABASES = {
