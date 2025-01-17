@@ -32,11 +32,6 @@ Copy the example secure configuration (or modify your existing `secure.py` to in
 ```bash
 cp mooclet_engine/settings/secure.py.example mooclet_engine/settings/secure.py
 ```
-
-Edit `secure.py` to use `docker_local` as default for local database:
-```python
-ACTIVE_DATABASE_CONFIG = 'docker_local'
-```
 ---
 
 #### Copy `docker_local.env.example` env File
@@ -51,19 +46,16 @@ cp mooclet_engine/docker_local.env.example mooclet_engine/docker_local.env
 ### 3. Run it!
 
 ```bash
-docker-compose -f docker_local.docker-compose.yml up --build
+docker-compose -f docker_local.docker-compose.yml --env-file ./docker_local.env up --build
 ```
 
-#### To stop the Containers, do:
-```bash
-docker-compose -f docker_local.docker-compose.yml down
-```
+Note that should see an API token generated for your convenience on successful startup:
 
-### 4. Accessing the Application and get API token
+`Generated token <some-token> for user mooclet_admin`
+
+### 5. Accessing the frontend
 
 - **Web Application**: http://localhost:8000
 - **Admin Panel**: http://localhost:8000/admin
-  - Username: `mooclet`
-  - Password: `mooclet`
-
-Navigate to `Tokens` to create a token for your API calls.
+  - Username: `mooclet_admin`
+  - Password: `mooclet_admin`
