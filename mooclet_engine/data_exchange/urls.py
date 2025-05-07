@@ -1,4 +1,4 @@
-from django.conf.urls import include, url
+from django.urls import re_path, include
 from rest_framework import routers
 from . import views
 
@@ -9,6 +9,6 @@ router.register(r'qualtricsontaskdataexchange', views.QualtricsOnTaskDataExchang
 
 
 urlpatterns = [
-	url(r'^dataexchange/', include(router.urls, namespace='dataexchange')),
+	re_path(r'^dataexchange/', include(router.urls, namespace='dataexchange')),
 
 ]

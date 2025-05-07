@@ -1,4 +1,4 @@
-from django.conf.urls import include, url
+from django.urls import re_path, include
 from rest_framework import routers
 from . import views
 
@@ -18,10 +18,10 @@ router.register(r'policyparametershistory', views.PolicyParametersHistoryViewSet
 router.register(r'version-name', views.VersionNameViewSet)
 app_name = 'engine'
 urlpatterns = [
-	url(r'^api/v1/', include((router.urls, app_name), namespace='v1')),
-	url(r'^data', views.PandasValueViewSet.as_view()),
-	url(r'^learner-data', views.PandasLearnerValueViewSet.as_view()),
-	# url(r'^api/getBinaryContextualImputer/', views.getBinaryContextualImputer.as_view()),
-	url(r'^api/initContext/', views.ContextualImputer.as_view()),
-	url(r'^api/dataDownload/', views.ExportExcelValues.as_view()),
+	re_path(r'^api/v1/', include((router.urls, app_name), namespace='v1')),
+	re_path(r'^data', views.PandasValueViewSet.as_view()),
+	re_path(r'^learner-data', views.PandasLearnerValueViewSet.as_view()),
+	# re_path(r'^api/getBinaryContextualImputer/', views.getBinaryContextualImputer.as_view()),
+	re_path(r'^api/initContext/', views.ContextualImputer.as_view()),
+	re_path(r'^api/dataDownload/', views.ExportExcelValues.as_view()),
 ]

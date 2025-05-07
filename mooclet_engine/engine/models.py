@@ -1,5 +1,5 @@
-from __future__ import unicode_literals
-from django.contrib.postgres.fields import JSONField
+# from __future__ import unicode_literals
+from django.db.models import JSONField
 from django.db import models
 from django.urls import reverse
 from django.shortcuts import redirect

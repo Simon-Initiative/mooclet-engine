@@ -1,10 +1,7 @@
-FROM python:3.9-slim
+FROM python:3.12-alpine
 
-# Install PostgreSQL development headers for psycopg2
-ENV RPY2_CFFI_MODE=ABI
-RUN apt-get update && apt-get install -y \
-    libpq-dev gcc \
-    && rm -rf /var/lib/apt/lists/*
+# Install PostgreSQL development headers and gcc for Alpine
+RUN apk add --no-cache postgresql-dev gcc musl-dev
 
 COPY ./mooclet_engine/settings/secure.py /usr/src/app/
 COPY ./docker_local.django_setup.sh /docker_local.django_setup.sh
